@@ -1,0 +1,44 @@
+class Solution
+{
+    public:
+    //Function to remove a loop in the linked list.
+    Node* floydDetectLoop(Node* head){
+        Node* slow = head;
+        Node* fast = head;
+        while(slow!=NULL && fast!=NULL){
+            fast = fast->next;
+            if(fast!=NULL){
+                fast = fast->next;
+            }
+            
+            slow = slow->next;
+            if(slow == fast){
+                return slow;
+            }
+        }
+        return NULL;
+    }
+    Node* getStartingOfNode(Node* head){
+        Node* intersection = floydDetectLoop(head);
+        Node* slow = head;
+        if(head == NULL){
+            return NULL;
+        }
+        while(slow!=intersection){
+            slow = slow->next;
+            intersection = intersection->next;
+        }
+        return slow;
+    }
+    void removeLoop(Node* head)
+    {
+        // code here
+        // just remove the loop without losing any nodes
+        Node* startOfNode = getStartingOfNode(head);
+        Node* temp = startOfNode;
+        while(temp->next = startOfNode){
+            temp = temp->next;
+        }
+        temp -> next = NULL;
+    }
+};
