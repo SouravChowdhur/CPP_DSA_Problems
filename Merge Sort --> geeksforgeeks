@@ -1,0 +1,50 @@
+public:
+    void merge(int arr[], int l, int m, int r)
+    {
+         // Your code here
+    int i, j, k;
+    int mergeArray[r+1];
+    i = l, j = m + 1, k = l;
+    while (i <= m && j <= r)
+    {
+        if (arr[i] < arr[j])
+        {
+            mergeArray[k] = arr[i];
+            i++;
+            k++;
+        }
+        else
+        {
+            mergeArray[k] = arr[j];
+            j++;
+            k++;
+        }
+    }
+    while (i <= m)
+    {
+        mergeArray[k] = arr[i];
+        k++;
+        i++;
+    }
+    while (j <= r)
+    {
+        mergeArray[k] = arr[j];
+       k++;
+       j++;
+    }
+    for(int i=l; i<=r; i++){
+        arr[i] = mergeArray[i];
+    }
+    }
+    public:
+    void mergeSort(int arr[], int l, int r)
+    {
+        //code here
+        int m;
+    if(l<r){
+        m = (l + r)/2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m+1, r);
+        merge(arr, l, m, r);
+    }
+    }
