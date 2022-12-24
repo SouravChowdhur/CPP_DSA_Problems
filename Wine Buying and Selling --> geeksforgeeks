@@ -1,0 +1,21 @@
+long long int wineSelling(vector<int>& Arr, int N){
+      //Code here.
+      int b = 0, s = 0;
+      long long ans = 0;
+      while(1){
+          while(Arr[b]<=0 && b<N){
+              b++;
+          }
+          while(Arr[s]>=0 && s<N){
+              s++;
+          }
+          if(b==N || s==N){
+              break;
+          }
+          int x = min(Arr[b], -Arr[s]);
+          Arr[b]-=x;
+          Arr[s]+=x;
+          ans+=x*abs(b-s);
+      }
+      return ans;
+  }
