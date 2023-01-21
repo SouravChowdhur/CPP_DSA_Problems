@@ -1,0 +1,22 @@
+void MyStack ::push(int x) 
+{
+    // Your Code
+    struct StackNode* n = (struct StackNode*)malloc(sizeof(struct StackNode));
+        n->data = x;
+        n->next = top;
+        top = n;
+}
+
+//Function to remove an item from top of the stack.
+int MyStack ::pop() 
+{
+    // Your Code
+    if(top == NULL){
+        return -1;
+    }
+    struct StackNode* n = top;
+    top = top->next;
+    int x = n->data;
+    free(n);
+    return x;
+}
