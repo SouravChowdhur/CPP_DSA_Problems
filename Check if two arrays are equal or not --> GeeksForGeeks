@@ -1,0 +1,24 @@
+ bool check(vector<ll> A, vector<ll> B, int N) {
+        //code here
+        unordered_map<ll, ll> unmap;
+        for(int i=0; i<N; i++){
+            unmap[A[i]]++;
+        }
+        for(int i=0; i<N; i++){
+            ll key = B[i];
+            if(unmap.find(key)!=unmap.end()){ //codition for if the current element in B array is found in unordered map
+                auto temp = unmap.find(key);
+                if(temp->second > 0){
+                    temp->second--;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+        
+    }
