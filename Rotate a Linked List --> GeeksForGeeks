@@ -1,0 +1,41 @@
+int size(Node* head){
+        int n = 0;
+        while(head!=NULL){
+            n++;
+            head = head->next;
+        }
+        return n;
+    }
+    Node* rotate(Node* head, int k)
+    {
+        // Your code here
+        int n = size(head);
+        if(head == NULL){
+            return head;
+        }
+        if(k == 0){
+            return head;
+        }
+        int loop = k%n;
+        if(n == 1 || loop == n || loop == 0){
+            return head;
+        }
+        int j = 0;
+        Node* temp = head;
+        Node* FirstAdress = head;
+        while(temp!=NULL){
+            j++;
+            if(j == loop){
+                FirstAdress = temp->next;
+                temp->next = NULL;
+                break;
+            }
+            temp = temp -> next;
+        }
+        temp = FirstAdress;
+        while(temp->next != NULL){
+            temp = temp->next;
+        }
+        temp->next = head;
+        return FirstAdress;
+    }
