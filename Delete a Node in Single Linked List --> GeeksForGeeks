@@ -1,0 +1,31 @@
+int count(Node* head){
+    int c = 0;
+    Node* m = head;
+    while(m!=NULL){
+        c++;
+        m = m->next;
+    }
+    return c;
+}
+Node* deleteNode(Node *head,int x)
+{
+    //Your code here
+    int c = count(head);
+    Node* h1, *h2;
+    if(x<=0 || x>c){
+        return NULL;
+    }
+    if(x == 1){
+        head = head->next;
+    }
+    else{
+        int i;
+        for(h1=head, h2=head, i=1; i<=x-1; i++){
+            h2 = h1;
+            h1 = h1->next;
+        }
+        h2->next = h1->next;
+        free(h1);
+    }
+    return head;
+}
