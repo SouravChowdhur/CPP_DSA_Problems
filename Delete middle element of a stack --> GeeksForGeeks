@@ -1,0 +1,23 @@
+void solve(stack<int>&s, int count, int size){
+        //Base case
+        if(count == size/2){
+            s.pop();
+            return;
+        }
+        
+        //pick top element ans store in a variable
+        int element = s.top();
+        s.pop();
+        
+        //if the count is not in size/2 then go to next call
+        solve(s, count+1, size);
+        
+        //push the left elements from variable while return
+        s.push(element);
+    }
+    void deleteMid(stack<int>&s, int sizeOfStack)
+    {
+        // code here.. 
+        int count = 0;
+        solve(s, count, sizeOfStack);
+    }
