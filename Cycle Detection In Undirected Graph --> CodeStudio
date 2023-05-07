@@ -1,0 +1,57 @@
+#include<unordered_map>
+#include<list>
+#include<queue>
+//step 4: craete isCycleBFS Algo
+bool isCycleBFS(int source, unordered_map<int, bool> visited, unordered_map<int, list<int>> adj){
+        unordered_map<int, int> parent;
+        parent[source] = -1;
+        visited[source] = 1;
+        queue<int> q;
+        q.push(source);
+        while(!q.empty()){
+            int front = q.front();
+            q.pop();
+            for(auto neighbour: adj[front]){
+                //condition for cycle present
+                if(visited[neighbour] == true && neighbour!=parent[front]){
+                    return true;
+                }
+                //normal condition to push in the queue
+                else if(!visited[neighbour]){
+                    q.push(neighbour);
+                    visited[neighbour] = 1;
+                    parent[neighbour] = front;
+                }
+            }
+        }
+        return false;
+}
+string cycleDetection (vector<vector<int>>& edges, int n, int m)
+{
+    
+
+    //step 1: create adjacency list
+    unordered_map<int, list<int>> adj;
+    for(int i=0; i<m; i++){
+        int u = edges[i][0];
+        int v = edges[i][1];
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    //step 2: create visited data structure
+    unordered_map<int, bool> visited;
+
+   
+   
+   //step 3: create algorithm
+    for(int i=0; i<n; i++){
+        if(!visited[i]){
+            bool ans = isCycleBFS(i, visited, adj);
+            if(ans == 1){
+                return "Yes";
+            }
+        }
+        
+    }
+    return "No";
+}
