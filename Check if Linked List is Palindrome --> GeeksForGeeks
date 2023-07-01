@@ -1,0 +1,52 @@
+ Node* reverse(Node* head){
+        Node* prev = NULL;
+        Node* curr = head;
+        Node* forward = curr->next;
+        while(curr!=NULL){
+            forward = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = forward;
+        }
+        return prev;
+    }
+    //Function to check whether the list is palindrome.
+    bool isPalindrome(Node *head)
+    {
+        //Your code here
+        //No node in linkedlist
+        if(head == NULL){
+            return false;
+        }
+        //single node in linkedlist
+        if(head->next == NULL){
+            return true;
+        }
+        //find middle node in linkedlist
+        Node* slow = head;
+        Node* fast = head->next;
+        while(fast!=NULL){
+            fast = fast->next;
+            if(fast!=NULL){
+                fast = fast->next;
+                slow = slow->next;
+            }
+        }
+        //reverse the linked list after the slow pointer
+        Node* headOfTheReverse = reverse(slow->next);
+        //link the reverse linked list with the slow pointer
+        slow->next = headOfTheReverse;
+        //compare the data
+        Node* temp1 = head;
+        Node* temp2 = headOfTheReverse;
+        while(temp2!=NULL){
+            if(temp1->data!=temp2->data){
+                return false;
+            }
+            else{
+                temp1 = temp1->next;
+                temp2 = temp2->next;
+            }
+        }
+        return true;
+    }
