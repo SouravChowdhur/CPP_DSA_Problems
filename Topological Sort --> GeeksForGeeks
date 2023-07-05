@@ -28,6 +28,44 @@ void dfs(int node, vector<int> &ans, int visited[], vector<int> adj[]){
 	            dfs(i, ans, visited, adj);
 	        }
 	    }
+
+
+
+
+//Topological sort using bfs
+vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // code here
+	    vector<int> ans;
+	    queue<int> q;
+	    int indegree[V] = {0};
+	    //STEP 1: Set indegree of every nodes
+	    for(int i=0; i<V; i++){
+	        for(auto nbr: adj[i]){
+	            indegree[nbr]++;
+	        }
+	    }
+	    //STEP 2: if indegree 0, push them in queue
+	    for(int i=0; i<V; i++){
+	        if(indegree[i] == 0){
+	            q.push(i);
+	        }
+	    }
+	    //STEP 3: untill q is fully vacant, find frontNode, pop the node, push into the ans vector, for that node, minus the indegree of the adjacent nodes and if the indegree == 0 push them again in the queue
+	    while(!q.empty()){
+	        int frontNode = q.front();
+	        q.pop();
+	        ans.push_back(frontNode);
+	        for(auto nbr: adj[frontNode]){
+	            indegree[nbr]--;
+	            if(indegree[nbr] == 0){
+	                q.push(nbr);
+	            }
+	        }
+	    }
+	    
+	    return ans;
+	}
 	    //STEP 4: reverse the array
 	    reverse(ans.begin(), ans.end());
 	    //STEP 5: finally return the ans array
