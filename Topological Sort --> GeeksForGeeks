@@ -1,0 +1,35 @@
+//Topological sort using dfs
+
+void dfs(int node, vector<int> &ans, int visited[], vector<int> adj[]){
+        // Step 1: marked true as visited the node
+        visited[node] = 1;
+        //step 2: traverse through all the adjacent nodes
+        for(auto nbr: adj[node]){
+            //step 3: if not visited befire, visit now by dfs function
+            if(visited[nbr] == 0){
+                dfs(nbr, ans, visited, adj);
+            }
+        }
+        //step 4: when no way is discovered from the particular node, push into stack
+        ans.push_back(node);
+    }
+	
+	vector<int> topoSort(int V, vector<int> adj[]) 
+	{
+	    // code here
+	    
+	    //STEP 1: Create a visited array to track if the particular node is already visited or not
+	   int visited[V] = {0};
+	    //STEP 2: Create an array called ans that has to be returned in reverse way
+	    vector<int> ans;
+	    //STEP 3: traverse through all the vertices of the graph
+	    for(int i=0; i<V; i++){
+	        if(visited[i] == 0){
+	            dfs(i, ans, visited, adj);
+	        }
+	    }
+	    //STEP 4: reverse the array
+	    reverse(ans.begin(), ans.end());
+	    //STEP 5: finally return the ans array
+	    return ans;
+	}
