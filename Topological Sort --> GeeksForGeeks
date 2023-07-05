@@ -5,7 +5,7 @@ void dfs(int node, vector<int> &ans, int visited[], vector<int> adj[]){
         visited[node] = 1;
         //step 2: traverse through all the adjacent nodes
         for(auto nbr: adj[node]){
-            //step 3: if not visited befire, visit now by dfs function
+            //step 3: if not visited before, visit now by dfs function
             if(visited[nbr] == 0){
                 dfs(nbr, ans, visited, adj);
             }
