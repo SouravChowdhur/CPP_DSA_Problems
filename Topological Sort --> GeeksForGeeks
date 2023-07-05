@@ -28,7 +28,11 @@ void dfs(int node, vector<int> &ans, int visited[], vector<int> adj[]){
 	            dfs(i, ans, visited, adj);
 	        }
 	    }
-
+               //STEP 4: reverse the array
+	    reverse(ans.begin(), ans.end());
+	    //STEP 5: finally return the ans array
+	    return ans;
+	}
 
 
 
@@ -66,8 +70,4 @@ vector<int> topoSort(int V, vector<int> adj[])
 	    
 	    return ans;
 	}
-	    //STEP 4: reverse the array
-	    reverse(ans.begin(), ans.end());
-	    //STEP 5: finally return the ans array
-	    return ans;
-	}
+	
