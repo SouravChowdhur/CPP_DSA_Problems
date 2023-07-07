@@ -1,0 +1,54 @@
+public:
+    vector<int> topoSort(int V, unordered_map<int, list<int>> adjList) 
+	{
+	    // code here
+	    vector<int> ans;
+	    queue<int> q;
+	    int indegree[V] = {0};
+	    //STEP 1: Set indegree of every nodes
+	    for(auto i: adjList){
+	        for(auto nbr: i.second){
+	            indegree[nbr]++;
+	        }
+	    }
+	    //STEP 2: if indegree 0, push them in queue
+	    for(int i=0; i<V; i++){
+	        if(indegree[i] == 0){
+	            q.push(i);
+	        }
+	    }
+	    //STEP 3: untill q is fully vacant, find frontNode, pop the node, push into the ans vector, for that node, minus the indegree of the adjacent nodes and if the indegree == 0 push them again in the queue
+	    while(!q.empty()){
+	        int frontNode = q.front();
+	        q.pop();
+	        ans.push_back(frontNode);
+	        for(auto nbr: adjList[frontNode]){
+	            indegree[nbr]--;
+	            if(indegree[nbr] == 0){
+	                q.push(nbr);
+	            }
+	        }
+	    }
+	   //check valid or invalid topological sort
+	   //condition for valid
+	   if(ans.size() == V)
+	       return ans;
+	   else 
+	       //condition for invalid
+	       return {};
+	}
+    vector<int> findOrder(int n, int m, vector<vector<int>> prerequisites) 
+    {
+        //code here
+        //create adjacency list
+        unordered_map<int, list<int>> adjList;
+        for(auto task:  prerequisites){
+            int u = task[0];
+            int v = task[1];
+            adjList[v].push_back(u);
+        }
+        
+        vector<int> ans = topoSort(n, adjList);
+        return ans;
+        
+    }
