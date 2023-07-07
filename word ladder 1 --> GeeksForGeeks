@@ -1,0 +1,42 @@
+  int wordLadderLength(string startWord, string targetWord, vector<string>& wordList) {
+        // Code here
+        //initializing steps
+        queue<pair<string, int>> q;
+        q.push({startWord, 1});
+        unordered_set<string> st(wordList.begin(), wordList.end());
+        //erase from set so that we will not go back in the previous word by any chance
+        st.erase(startWord);
+
+
+        while(!q.empty()){
+            pair<string, int> frontNode = q.front();
+            q.pop();
+            string currentWord = frontNode.first;
+            int currentCount = frontNode.second;
+            
+            //check if we reach to the targetWord or not
+            if(currentWord == targetWord){
+                return currentCount;
+            }
+
+            //check all possible words by replacing each character
+            for(int i=0; i<currentWord.length(); i++){
+                //store the particular character
+                char originalCharacter = currentWord[i];
+                for(char ch = 'a'; ch<= 'z'; ch++){
+                    currentWord[i] = ch;
+                    //if find the particular word in the set
+                    if(st.find(currentWord) != st.end()){
+                        q.push({currentWord, currentCount+1});
+                        st.erase(currentWord);
+                    }
+                }
+                //regain the original word
+                currentWord[i] = originalCharacter;
+            }
+            
+            
+        }
+        //if we do not reach to the target word
+        return 0;
+    }
